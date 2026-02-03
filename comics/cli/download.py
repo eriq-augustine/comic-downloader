@@ -13,12 +13,13 @@ import comics.download
 def run_cli(args: argparse.Namespace) -> int:
     """ Run the CLI. """
 
-    # Increase the HTTP timeout.
+    # Set the HTTP timeout.
     edq.net.request._module_makerequest_options = {
-        'timeout': 60,
+        'timeout': 5.0,
     }
 
     total_missing_count = 0
+    total_chapter_errors = 0
 
     for url in args.urls:
         result = comics.download.download(url, args.out_dir, dry_run = args.dry_run)
@@ -27,21 +28,27 @@ def run_cli(args: argparse.Namespace) -> int:
         print("    Chapters:")
 
         missing_images = 0
+        chapter_errors = 0
+
         for chapter_download_result in result.chapter_download_results:
             missing_images += chapter_download_result.missing_count()
+
+            if (chapter_download_result.has_error()):
+                chapter_errors += 1
 
             print(f"        {chapter_download_result}")
             for image_download_result in chapter_download_result.image_results:
                 if (image_download_result.has_error()):
                     print(f"            {image_download_result.image} - {image_download_result.error_text()}")
 
-        print(f"    Missing Count: {missing_images}")
+        print(f"    Missing Count: {missing_images}, Chapter Errors: {chapter_errors}")
 
         total_missing_count += missing_images
+        total_chapter_errors += chapter_errors
 
-    print(f"\nTotal Missing Count: {total_missing_count}")
+    print(f"\nTotal Missing Count: {total_missing_count}, Total Chapter Errors: {total_chapter_errors}")
 
-    return min(total_missing_count, 100)
+    return min((total_missing_count + total_chapter_errors), 100)
 
 def main() -> int:
     """ Get a parser, parse the args, and call run. """

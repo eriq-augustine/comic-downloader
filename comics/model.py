@@ -3,9 +3,9 @@ import os
 import time
 import typing
 
-DEFAULT_IMAGE_WAIT_SECS: float = 0.25
+DEFAULT_IMAGE_WAIT_SECS: float = 0.15
 
-DEFAULT_RETRIES: int = 3
+DEFAULT_RETRIES: int = 4
 
 class ComicImage:
     """ Information about an image that appears in a comic chapter. """
