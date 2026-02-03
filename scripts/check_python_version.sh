@@ -16,7 +16,7 @@ function main() {
 
     cd "${ROOT_DIR}"
 
-    vermin --no-tips --no-parse-comments --target=3.8- --violations comics
+    vermin --no-tips --no-parse-comments --target=3.9- --violations comics
     return $?
 }
 
