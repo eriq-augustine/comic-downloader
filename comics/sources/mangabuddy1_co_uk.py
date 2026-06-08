@@ -1,4 +1,3 @@
-import json
 import re
 import typing
 import urllib.parse
@@ -72,7 +71,7 @@ class ComicSource(comics.model.ComicSource):
 
         images = []
         for (i, image) in enumerate(document.select('img[data-src]')):
-            images.append(comics.model.ComicImage(image.get('data-src'), index = i))
+            images.append(comics.model.ComicImage(str(image.get('data-src')), index = i))
 
         return images
 

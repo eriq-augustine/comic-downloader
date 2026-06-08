@@ -1,4 +1,3 @@
-import json
 import re
 import typing
 
@@ -33,11 +32,16 @@ class ComicSource(comics.model.ComicSource):
             if (link is None):
                 raise ValueError("Unable to locate chapter link.")
 
+            chapter_name = element.get('title', None)
+            if (chapter_name is not None):
+                chapter_name = str(chapter_name)
+
+            link = str(link)
             chapters.append(comics.model.ComicChapter(
                 url = 'https://mangabuddy.com' + link,
                 index = i,
                 source_id = link,
-                name = element.get('title', None),
+                name = chapter_name,
             ))
 
         return comics.model.ComicInfo(url, name, chapters = chapters)
