@@ -5,7 +5,7 @@ Download comics by URL.
 import argparse
 import sys
 
-import edq.net.request
+import edq.net.settings
 
 import comics.cli.parser
 import comics.download
@@ -14,9 +14,8 @@ def run_cli(args: argparse.Namespace) -> int:
     """ Run the CLI. """
 
     # Set the HTTP timeout.
-    edq.net.request._module_makerequest_options = {
-        'timeout': 5.0,
-    }
+    edq.net.settings.set_connection_timeout_secs(5.0)
+    edq.net.settings.set_read_timeout_secs(5.0)
 
     total_missing_count = 0
     total_chapter_errors = 0
