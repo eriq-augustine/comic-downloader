@@ -9,6 +9,7 @@ KNOWN_SOURCE_MODULES: typing.List[str] = [
     'comics.sources.coffeemanga_to',
     'comics.sources.mangabuddy_com',
     'comics.sources.mangabuddy1_co_uk',
+    'comics.sources.manga_uno',
 ]
 """
 Source modules that we already know about.
