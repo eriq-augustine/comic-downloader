@@ -37,7 +37,7 @@ class ComicSource(comics.model.ComicSource):
                     name = f"Chapter {int(number):03d}"
                 else:
                     name = f"Chapter {number:07.3f}"
-            except:
+            except ValueError:
                 pass
 
             chapters.append(comics.model.ComicChapter(
